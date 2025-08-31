@@ -2,27 +2,93 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Paiement annulé</title>
+  <title>Paiement annulé — Formation Trading</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    :root{ --bg:#F7F7F8; --panel:#FFF; --ink:#991B1B; --muted:#475569; --radius:24px; --cta:#991B1B; }
-    body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);font:16px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    .card{background:var(--panel);padding:48px;border-radius:var(--radius);box-shadow:0 6px 16px rgba(0,0,0,.08);text-align:center;max-width:460px}
-    h1{margin:0 0 12px;font-size:28px;color:var(--ink)}
-    p{margin:0 0 24px;color:var(--muted)}
-    .cta{display:inline-block;padding:14px 28px;border-radius:999px;background:var(--cta);color:#FFF;text-decoration:none;font-weight:600}
-    .link{display:block;margin-top:16px;color:var(--muted);text-decoration:none}
-  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    /* Petites touches locales, tout le reste vient de assets/styles.css */
+    .status-badge { color:#991B1B; border-color:#FCA5A5; background:#FEF2F2; }
+    .center { display:flex; align-items:center; justify-content:center; min-height:50vh; }
+    .actions { display:grid; gap:12px; }
+    @media (max-width:768px){ .actions .button, .actions .badge { width:100%; text-align:center; } }
+  </style>
 </head>
 <body>
-  <div class="card">
-    <h1>❌ Paiement annulé</h1>
-    <p>Votre transaction n’a pas été finalisée.<br>Vous pouvez réessayer quand vous voulez.</p>
-    <a href="/frontend/index.html" class="cta">Réessayer le paiement</a>
-    <a href="/" class="link">Retour à l’accueil</a>
-  </div>
+
+  <!-- Header (même que les autres pages) -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <div class="brand">
+          <span class="badge" style="width:36px;height:36px"></span>
+          <span>Marque</span>
+        </div>
+        <div class="pills nav-links">
+          <a class="badge" href="/index.html">Accueil</a>
+          <a class="badge" href="/programme.html">Programme</a>
+          <a class="badge" href="/temoignages.html">Témoignages</a>
+          <a class="badge" href="/faq.html">FAQ</a>
+        </div>
+        <a class="button nav-cta" href="/paiement.html">Commencer</a>
+        <button class="menu-toggle" aria-controls="nav-drawer" aria-expanded="false" aria-label="Ouvrir le menu">☰</button>
+      </nav>
+    </div>
+    <div id="nav-drawer" class="drawer" hidden>
+      <div class="drawer__panel">
+        <button class="drawer__close" aria-label="Fermer">✕</button>
+        <a href="/index.html">Accueil</a>
+        <a href="/programme.html">Programme</a>
+        <a href="/temoignages.html">Témoignages</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="button" href="/paiement.html" style="margin-top:12px;">Commencer</a>
+      </div>
+      <div class="drawer__backdrop"></div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container center">
+      <div class="card" style="max-width:520px; width:100%;">
+        <div class="pills" style="margin-bottom:8px">
+          <span class="pill status-badge">❌ Paiement annulé</span>
+        </div>
+        <h1 style="margin-top:0">Transaction non finalisée</h1>
+        <p>Votre paiement a été interrompu. Vous pouvez réessayer à tout moment.</p>
+
+        <div class="actions" style="margin-top:16px">
+          <a href="/paiement.html" class="button">Réessayer le paiement</a>
+          <a href="/index.html" class="badge">Retour à l’accueil</a>
+        </div>
+        <p class="note" style="margin-top:12px">Besoin d’aide ? Contactez-nous.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="section" style="padding-top:48px;">
+    <div class="container">
+      <div class="pills">
+        <span class="pill">Mentions légales</span>
+        <span class="pill">CGV</span>
+        <span class="pill">Remboursement 14j</span>
+        <span class="pill">Risques trading</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS drawer mobile -->
+  <script>
+    const toggle = document.querySelector(".menu-toggle");
+    const drawer = document.getElementById("nav-drawer");
+    const closeBtn = drawer?.querySelector(".drawer__close");
+    const backdrop = drawer?.querySelector(".drawer__backdrop");
+    function openDrawer(){ drawer.hidden=false; drawer.classList.add("open"); toggle.setAttribute("aria-expanded","true"); document.body.style.overflow="hidden"; }
+    function closeDrawer(){ drawer.classList.remove("open"); setTimeout(()=>drawer.hidden=true,150); toggle.setAttribute("aria-expanded","false"); document.body.style.overflow=""; }
+    toggle?.addEventListener("click", openDrawer);
+    closeBtn?.addEventListener("click", closeDrawer);
+    backdrop?.addEventListener("click", closeDrawer);
+  </script>
+
 </body>
 </html>
