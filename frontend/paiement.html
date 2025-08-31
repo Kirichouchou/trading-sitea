@@ -8,6 +8,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css" />
   <script src="https://js.stripe.com/v3"></script>
+
+  <!-- Styles spécifiques à la page paiement -->
+  <style>
+    /* Wrapper commun aux inputs du site */
+    .input {
+      height: 52px;
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      background: #fff;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .input:focus-within {
+      border-color: #111827;
+      box-shadow: 0 0 0 1px #111827;
+    }
+    /* Stripe dans le wrapper : occupe tout l’espace */
+    .input--stripe #card-element,
+    .input--stripe .StripeElement,
+    .input--stripe iframe {
+      width: 100% !important;
+      height: 100% !important;
+    }
+    /* Message d’info/erreur */
+    #messages { min-height: 20px; }
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -40,19 +69,28 @@
           <div class="card dashed">
             <h2>Payez en un geste</h2>
             <div id="payment-request-button" style="margin:16px 0;"></div>
-            <p class="note">Apple Pay (Safari/iOS/macOS) ou Google Pay (Chrome/Android) s’affiche automatiquement si disponible.</p>
+            <p class="note">
+              Apple Pay (Safari/iOS/macOS) ou Google Pay (Chrome/Android) s’affiche automatiquement si disponible.
+            </p>
           </div>
 
           <div style="height:16px"></div>
 
           <div class="card dashed">
             <h2>Ou par carte</h2>
-            <div id="card-element" style="margin-top:12px"></div>
+
+            <!-- Wrapper input au style du site -->
+            <div class="input input--stripe" id="card-wrapper">
+              <div id="card-element"></div>
+            </div>
+
             <button id="pay" class="button" style="margin-top:16px">Payer et accéder</button>
             <div id="messages" class="note" style="margin-top:8px"></div>
           </div>
 
-          <p class="note" style="margin-top:12px">Garantie 14 jours. Paiement sécurisé via Stripe (3D Secure).</p>
+          <p class="note" style="margin-top:12px">
+            Garantie 14 jours. Paiement sécurisé via Stripe (3D Secure). Le trading comporte des risques de perte en capital.
+          </p>
         </section>
 
         <!-- Récapitulatif commande -->
@@ -94,25 +132,31 @@
   </footer>
 
   <script>
-    // ⚠️ A adapter : Render en prod
-    const API_BASE_URL = "https://trading-sitea.onrender.com"; 
+    // 🔗 Backend Render (prod). En dev local : "http://localhost:4242"
+    const API_BASE_URL = "https://trading-sitea.onrender.com";
 
-    const messages = (m) => { document.getElementById('messages').textContent = m || ""; };
+    const messages = (m) => {
+      document.getElementById('messages').textContent = m || "";
+    };
 
     async function init(){
-      const cfg = await fetch(API_BASE_URL + "/config").then(r=>r.json());
+      // 1) Récup config (clé publique + prix)
+      const cfg = await fetch(API_BASE_URL + "/config").then(r => r.json());
       const stripe = Stripe(cfg.publishableKey);
-      const amount = cfg.amount, currency = cfg.currency || "eur";
 
-      // Total affiché
+      // Montant en centimes (entier) retourné par le backend
+      const cents = Number(cfg.amount);           // ex. 36000 pour 360,00 €
+      const currency = cfg.currency || "eur";
+
+      // Affichage en euros
       document.getElementById("order-total").textContent =
-        new Intl.NumberFormat("fr-FR",{style:"currency",currency}).format(amount/100);
+        new Intl.NumberFormat("fr-FR",{ style:"currency", currency }).format(cents/100);
 
-      // Apple Pay / Google Pay
+      // 2) Wallets (Apple Pay / Google Pay) — ATTENTION: montant en CENTIMES
       const pr = stripe.paymentRequest({
         country: "FR",
         currency,
-        total: { label: "Formation Trading", amount },
+        total: { label: "Formation Trading", amount: cents },
         requestPayerName: true,
         requestPayerEmail: true
       });
@@ -123,65 +167,52 @@
       });
       const canPay = await pr.canMakePayment();
       if (canPay) prButton.mount("#payment-request-button");
+      else document.getElementById("payment-request-button").style.display = "none";
 
-      // Carte bancaire
-      const card = elements.create("card", { style: { base: { fontSize: "16px" } } });
+      // 3) Carte bancaire (Stripe Elements) — style lisible
+      const card = elements.create("card", {
+        style: {
+          base: {
+            fontSize: "16px",
+            color: "#111827",
+            fontFamily: "Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+            "::placeholder": { color: "#9ca3af" }
+          },
+          invalid: { color: "#dc2626" }
+        }
+      });
       card.mount("#card-element");
 
+      // 4) Paiement par carte
       const btn = document.getElementById("pay");
       btn.addEventListener("click", async () => {
-        btn.disabled = true;
-        messages("Paiement en cours...");
-        const { clientSecret } = await fetch(API_BASE_URL + "/create-payment-intent", {
-          method: "POST", headers: { "Content-Type": "application/json" }
-        }).then(r=>r.json());
-        const { error } = await stripe.confirmCardPayment(clientSecret, { payment_method: { card }});
-        if(error){ messages(error.message); btn.disabled=false; }
-        else {
-          messages("Paiement réussi. Redirection...");
-          setTimeout(()=>window.location="success.html",1500);
+        try {
+          btn.disabled = true;
+          messages("Création du paiement…");
+          const r = await fetch(API_BASE_URL + "/create-payment-intent", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}) // place pour metadata si besoin
+          });
+          const data = await r.json();
+          if (!r.ok) throw new Error(data?.error?.message || "Erreur serveur");
+
+          const { error } = await stripe.confirmCardPayment(data.clientSecret, {
+            payment_method: { card }
+          });
+
+          if (error) throw error;
+
+          messages("Paiement réussi. Redirection…");
+          setTimeout(() => window.location = "success.html", 1000);
+        } catch (e) {
+          messages(e.message || "Paiement refusé.");
+          btn.disabled = false;
         }
       });
     }
+
     init();
   </script>
 </body>
 </html>
-
-/* Conteneur Stripe */
-#card-element {
-  padding: 12px 14px;
-  border: 1px solid #e5e7eb; /* gris clair */
-  border-radius: 8px;
-  background: #fff;
-  width: 100%;
-  font-size: 16px;
-  color: #111;
-  box-sizing: border-box;
-}
-
-/* Au focus */
-#card-element.StripeElement--focus {
-  border-color: #111827; /* noir foncé */
-  box-shadow: 0 0 0 1px #111827;
-}
-
-/* En cas d'erreur */
-#card-element.StripeElement--invalid {
-  border-color: #dc2626; /* rouge */
-}
-
-const card = elements.create("card", {
-  style: {
-    base: {
-      fontSize: "16px",
-      color: "#111827",        // texte
-      fontFamily: "system-ui, sans-serif",
-      "::placeholder": { color: "#9ca3af" }, // gris clair
-    },
-    invalid: {
-      color: "#dc2626",        // rouge erreur
-    },
-  }
-});
-card.mount("#card-element");
