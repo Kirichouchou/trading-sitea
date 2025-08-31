@@ -207,4 +207,44 @@ p{ margin:0 0 var(--space-3); color:var(--muted) }
   .header .nav { height: 72px; }
 }
 
+/* ===== Offres ===== */
+.col-6{ grid-column: span 6; }
+@media (max-width:768px){ .col-6{ grid-column: span 4; } }
 
+.offers .offer{
+  display:flex; flex-direction:column; gap:16px;
+  border-radius: var(--radius-3);
+}
+.offer__head{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.offer__title{ margin:0; font-size:clamp(20px,2.2vw,24px); line-height:1.2; }
+.offer__subtitle{ margin:0; color:var(--muted); }
+
+.offer__tag{ font-weight:600; }
+.offer__tag--dark{ background:var(--cta); color:#fff; border-color:transparent; }
+.dot{ width:8px; height:8px; border-radius:999px; display:inline-block; margin-right:8px; background:#10B981; }
+.dot--warn{ background:#DC2626; }
+
+.offer__price{ display:flex; align-items:baseline; gap:10px; margin-top:4px; }
+.offer__amount{ font-size:clamp(28px,3.2vw,36px); font-weight:700; letter-spacing:.2px; }
+.offer__vat{ color:var(--muted); font-size:14px; }
+
+.offer__features{
+  list-style:none; padding:0; margin:8px 0 0;
+  display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px;
+}
+.offer__features li{
+  border:1px dashed var(--stroke);
+  border-radius:999px; padding:10px 14px; background:var(--bg-alt);
+  font-size:14px; color:var(--ink);
+}
+
+.offer__cta .button{ width:100%; margin-top:4px; }
+
+/* Mise en avant de l’offre “pro” (coaching) */
+.offer--pro{
+  box-shadow: var(--shadow-2);
+  outline: 1.5px solid color-mix(in oklab, var(--cta) 22%, transparent);
+}
+@media (max-width:768px){
+  .offer__features{ grid-template-columns: 1fr; }
+}
