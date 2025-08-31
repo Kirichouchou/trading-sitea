@@ -11,20 +11,42 @@
   
 <header class="header">
   <div class="container">
-    <nav class="nav">
-      <div class="brand">
-        <span class="badge" style="width:36px;height:36px"></span>
-        <span>Marque</span>
-      </div>
-      <div class="pills">
-        <a class="badge" href="/index.html">Accueil</a>
-        <a class="badge" href="/programme.html">Programme</a>
-        <a class="badge" href="/temoignages.html">Témoignages</a>
-        <a class="badge" href="/faq.html">FAQ</a>
-      </div>
-      <a class="button" href="/paiement.html">Commencer</a>
-    </nav>
+   <nav class="nav">
+  <div class="brand">
+    <span class="badge" style="width:36px;height:36px"></span>
+    <span>Marque</span>
   </div>
+
+  <!-- Liens desktop -->
+  <div class="pills nav-links">
+    <a class="badge" href="/index.html">Accueil</a>
+    <a class="badge" href="/programme.html">Programme</a>
+    <a class="badge" href="/temoignages.html">Témoignages</a>
+    <a class="badge" href="/faq.html">FAQ</a>
+  </div>
+
+  <!-- CTA desktop -->
+  <a class="button nav-cta" href="/paiement.html">Commencer</a>
+
+  <!-- Burger mobile -->
+  <button class="menu-toggle" aria-controls="nav-drawer" aria-expanded="false" aria-label="Ouvrir le menu">
+    ☰
+  </button>
+</nav>
+
+<!-- Drawer mobile -->
+<div id="nav-drawer" class="drawer" hidden>
+  <div class="drawer__panel">
+    <button class="drawer__close" aria-label="Fermer">✕</button>
+    <a href="/index.html">Accueil</a>
+    <a href="/programme.html">Programme</a>
+    <a href="/temoignages.html">Témoignages</a>
+    <a href="/faq.html">FAQ</a>
+    <a class="button" href="/paiement.html" style="margin-top:12px;">Commencer</a>
+  </div>
+  <div class="drawer__backdrop"></div>
+</div>
+
 </header>
 
   
