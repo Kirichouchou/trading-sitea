@@ -170,3 +170,18 @@
 #card-element.StripeElement--invalid {
   border-color: #dc2626; /* rouge */
 }
+
+const card = elements.create("card", {
+  style: {
+    base: {
+      fontSize: "16px",
+      color: "#111827",        // texte
+      fontFamily: "system-ui, sans-serif",
+      "::placeholder": { color: "#9ca3af" }, // gris clair
+    },
+    invalid: {
+      color: "#dc2626",        // rouge erreur
+    },
+  }
+});
+card.mount("#card-element");
