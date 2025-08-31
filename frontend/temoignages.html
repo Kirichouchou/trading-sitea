@@ -1,60 +1,120 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
   <title>Témoignages — Formation Trading</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .testimonial { font-size:16px; color:var(--ink); }
+    .stars { color:#f59e0b; font-size:18px; margin-bottom:6px; }
+    @media (max-width:768px){
+      .cta-wide{width:100%;}
+    }
+  </style>
 </head>
 <body>
-  
-<header class="header">
-  <div class="container">
-    <nav class="nav">
-      <div class="brand">
-        <span class="badge" style="width:36px;height:36px"></span>
-        <span>Marque</span>
+
+  <!-- Header commun -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <div class="brand">
+          <span class="badge" style="width:36px;height:36px"></span>
+          <span>Marque</span>
+        </div>
+
+        <!-- Liens desktop -->
+        <div class="pills nav-links">
+          <a class="badge" href="/index.html">Accueil</a>
+          <a class="badge" href="/programme.html">Programme</a>
+          <a class="badge" href="/temoignages.html">Témoignages</a>
+          <a class="badge" href="/faq.html">FAQ</a>
+        </div>
+
+        <!-- CTA desktop -->
+        <a class="button nav-cta" href="/paiement.html">Commencer</a>
+
+        <!-- Burger mobile -->
+        <button class="menu-toggle" aria-controls="nav-drawer" aria-expanded="false" aria-label="Ouvrir le menu">☰</button>
+      </nav>
+    </div>
+
+    <!-- Drawer mobile -->
+    <div id="nav-drawer" class="drawer" hidden>
+      <div class="drawer__panel">
+        <button class="drawer__close" aria-label="Fermer">✕</button>
+        <a href="/index.html">Accueil</a>
+        <a href="/programme.html">Programme</a>
+        <a href="/temoignages.html">Témoignages</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="button" href="/paiement.html" style="margin-top:12px;">Commencer</a>
       </div>
+      <div class="drawer__backdrop"></div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <h1>Ils ont suivi la formation</h1>
+      <p>Preuves vidéo + avis courts et concrets.</p>
+
+      <div class="grid">
+        <!-- Vidéos témoignages -->
+        <div class="col-7"><div class="card dashed"><div class="mock" style="height:260px"></div></div></div>
+        <div class="col-5"><div class="card dashed"><div class="mock" style="height:260px"></div></div></div>
+
+        <!-- Avis courts -->
+        <div class="col-5">
+          <div class="card testimonial">
+            <div class="stars">★★★★★</div>
+            “J’ai structuré ma méthode.”
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="card testimonial">
+            <div class="stars">★★★★☆</div>
+            “+ confiance, moins d’émotion.”
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="card testimonial">
+            <div class="stars">★★★★★</div>
+            “Clair et actionnable.”
+          </div>
+        </div>
+      </div>
+
+      <div style="height:24px"></div>
+      <a class="button cta-wide" href="/paiement.html">Rejoindre maintenant</a>
+    </div>
+  </main>
+
+  <footer class="section" style="padding-top:48px;">
+    <div class="container">
       <div class="pills">
-        <a class="badge" href="/index.html">Accueil</a>
-        <a class="badge" href="/programme.html">Programme</a>
-        <a class="badge" href="/temoignages.html">Témoignages</a>
-        <a class="badge" href="/faq.html">FAQ</a>
+        <span class="pill">Mentions légales</span>
+        <span class="pill">CGV</span>
+        <span class="pill">Remboursement 14j</span>
+        <span class="pill">Risques trading</span>
       </div>
-      <a class="button" href="/paiement.html">Commencer</a>
-    </nav>
-  </div>
-</header>
-
-  
-<main class="section">
-  <div class="container">
-    <h1>Ils ont suivi la formation</h1>
-    <p>Preuves vidéo + avis courts et concrets.</p>
-    <div class="grid">
-      <div class="col-7"><div class="card dashed"><div class="mock" style="height:260px"></div></div></div>
-      <div class="col-5"><div class="card dashed"><div class="mock" style="height:260px"></div></div></div>
-      <div class="col-5"><div class="card">“J’ai structuré ma méthode.”</div></div>
-      <div class="col-5"><div class="card">“+ confiance, moins d’émotion.”</div></div>
-      <div class="col-5"><div class="card">“Clair et actionnable.”</div></div>
     </div>
-    <div style="height:24px"></div>
-    <a class="button" href="/paiement.html">Rejoindre maintenant</a>
-  </div>
-</main>
+  </footer>
 
-  
-<footer class="section" style="padding-top:48px;">
-  <div class="container">
-    <div class="pills">
-      <span class="pill">Mentions légales</span>
-      <span class="pill">CGV</span>
-      <span class="pill">Remboursement 14j</span>
-      <span class="pill">Risques trading</span>
-    </div>
-  </div>
-</footer>
+  <!-- JS drawer mobile -->
+  <script>
+    const toggle = document.querySelector(".menu-toggle");
+    const drawer = document.getElementById("nav-drawer");
+    const closeBtn = drawer?.querySelector(".drawer__close");
+    const backdrop = drawer?.querySelector(".drawer__backdrop");
+    function openDrawer(){ drawer.hidden=false; drawer.classList.add("open"); toggle.setAttribute("aria-expanded","true"); document.body.style.overflow="hidden"; }
+    function closeDrawer(){ drawer.classList.remove("open"); setTimeout(()=>drawer.hidden=true,150); toggle.setAttribute("aria-expanded","false"); document.body.style.overflow=""; }
+    toggle?.addEventListener("click", openDrawer);
+    closeBtn?.addEventListener("click", closeDrawer);
+    backdrop?.addEventListener("click", closeDrawer);
+  </script>
 
 </body>
 </html>
