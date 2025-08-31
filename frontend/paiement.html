@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paiement — Formation Trading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="https://js.stripe.com/v3"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <div class="brand">
+          <span class="badge" style="width:36px;height:36px"></span>
+          <span>Marque</span>
+        </div>
+        <div class="pills">
+          <a class="badge" href="/index.html">Accueil</a>
+          <a class="badge" href="/programme.html">Programme</a>
+          <a class="badge" href="/temoignages.html">Témoignages</a>
+          <a class="badge" href="/faq.html">FAQ</a>
+        </div>
+        <a class="button" href="/paiement.html">Commencer</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Section Paiement -->
+  <main class="section">
+    <div class="container">
+      <div class="grid">
+        <!-- Bloc paiement -->
+        <section class="col-7">
+          <h1>Paiement sécurisé</h1>
+
+          <div class="card dashed">
+            <h2>Payez en un geste</h2>
+            <div id="payment-request-button" style="margin:16px 0;"></div>
+            <p class="note">Apple Pay (Safari/iOS/macOS) ou Google Pay (Chrome/Android) s’affiche automatiquement si disponible.</p>
+          </div>
+
+          <div style="height:16px"></div>
+
+          <div class="card dashed">
+            <h2>Ou par carte</h2>
+            <div id="card-element" style="margin-top:12px"></div>
+            <button id="pay" class="button" style="margin-top:16px">Payer et accéder</button>
+            <div id="messages" class="note" style="margin-top:8px"></div>
+          </div>
+
+          <p class="note" style="margin-top:12px">Garantie 14 jours. Paiement sécurisé via Stripe (3D Secure).</p>
+        </section>
+
+        <!-- Récapitulatif commande -->
+        <aside class="col-5">
+          <div class="card">
+            <h3 style="margin:0 0 8px">Votre commande</h3>
+            <p>Formation Trading — Accès complet</p>
+            <div class="mock" style="height:120px; margin:16px 0;"></div>
+            <div style="border-top:1px solid var(--stroke); padding-top:12px">
+              <div style="display:flex; justify-content:space-between">
+                <span>Total</span>
+                <strong id="order-total">—</strong>
+              </div>
+              <div class="note">Taxes incluses</div>
+            </div>
+          </div>
+          <div class="pills" style="margin-top:12px">
+            <span class="pill">Visa</span>
+            <span class="pill">Mastercard</span>
+            <span class="pill">Apple Pay</span>
+            <span class="pill">Google Pay</span>
+            <span class="pill">Stripe</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="section" style="padding-top:48px;">
+    <div class="container">
+      <div class="pills">
+        <span class="pill">Mentions légales</span>
+        <span class="pill">Conditions générales</span>
+        <span class="pill">Remboursement 14j</span>
+        <span class="pill">Risques trading</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ⚠️ A adapter : Render en prod
+    const API_BASE_URL = "http://localhost:4242"; 
+
+    const messages = (m) => { document.getElementById('messages').textContent = m || ""; };
+
+    async function init(){
+      const cfg = await fetch(API_BASE_URL + "/config").then(r=>r.json());
+      const stripe = Stripe(cfg.publishableKey);
+      const amount = cfg.amount, currency = cfg.currency || "eur";
+
+      // Total affiché
+      document.getElementById("order-total").textContent =
+        new Intl.NumberFormat("fr-FR",{style:"currency",currency}).format(amount/100);
+
+      // Apple Pay / Google Pay
+      const pr = stripe.paymentRequest({
+        country: "FR",
+        currency,
+        total: { label: "Formation Trading", amount },
+        requestPayerName: true,
+        requestPayerEmail: true
+      });
+      const elements = stripe.elements();
+      const prButton = elements.create("paymentRequestButton", {
+        paymentRequest: pr,
+        style: { paymentRequestButton: { type: "default" } }
+      });
+      const canPay = await pr.canMakePayment();
+      if (canPay) prButton.mount("#payment-request-button");
+
+      // Carte bancaire
+      const card = elements.create("card", { style: { base: { fontSize: "16px" } } });
+      card.mount("#card-element");
+
+      const btn = document.getElementById("pay");
+      btn.addEventListener("click", async () => {
+        btn.disabled = true;
+        messages("Paiement en cours...");
+        const { clientSecret } = await fetch(API_BASE_URL + "/create-payment-intent", {
+          method: "POST", headers: { "Content-Type": "application/json" }
+        }).then(r=>r.json());
+        const { error } = await stripe.confirmCardPayment(clientSecret, { payment_method: { card }});
+        if(error){ messages(error.message); btn.disabled=false; }
+        else {
+          messages("Paiement réussi. Redirection...");
+          setTimeout(()=>window.location="success.html",1500);
+        }
+      });
+    }
+    init();
+  </script>
+</body>
+</html>
