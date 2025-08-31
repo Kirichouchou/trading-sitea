@@ -151,3 +151,30 @@ p{ margin:0 0 var(--space-3); color:var(--muted) }
   h1{ font-size:28px; }
   .card{ padding:16px; }
 }
+/* ===== FIX MOBILE HEADER (force) ===== */
+@media (max-width: 768px) {
+  /* Cacher les liens desktop (même s'ils n'ont pas la classe nav-links) */
+  .header .nav .pills { 
+    display: none !important;
+  }
+
+  /* Cacher le CTA desktop dans la barre */
+  .header .nav .nav-cta,
+  .header .nav a.button.nav-cta {
+    display: none !important;
+  }
+
+  /* Afficher le burger */
+  .header .nav .menu-toggle {
+    display: inline-flex !important;
+    align-items: center; justify-content: center;
+    width: 44px; height: 44px; border-radius: 999px;
+    border: 1px dashed var(--stroke); background: var(--bg-alt);
+    font-size: 20px; line-height: 1; padding: 0; cursor: pointer;
+  }
+
+  /* Stabilise le header */
+  .header { background: var(--bg-alt) !important; }
+  .header .nav { height: 72px; }
+}
+
