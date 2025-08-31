@@ -178,3 +178,33 @@ p{ margin:0 0 var(--space-3); color:var(--muted) }
   .header .nav { height: 72px; }
 }
 
+/* ===== FIX MOBILE HEADER (NUCLÉAIRE) ===== */
+@media (max-width: 1024px) {
+  /* Cache TOUTES les pills/badges desktop dans le header */
+  .header .nav .pills,
+  .header .nav a.badge,
+  .header .nav .badge {
+    display: none !important;
+  }
+
+  /* Cache le CTA desktop */
+  .header .nav .nav-cta,
+  .header .nav a.button.nav-cta {
+    display: none !important;
+  }
+
+  /* Affiche le burger */
+  .header .nav .menu-toggle {
+    display: inline-flex !important;
+    align-items: center; justify-content: center;
+    width: 44px; height: 44px; border-radius: 999px;
+    border: 1px dashed var(--stroke); background: var(--bg-alt);
+    font-size: 20px; line-height: 1; padding: 0; cursor: pointer;
+  }
+
+  /* Stabilise le header */
+  .header { background: var(--bg-alt) !important; }
+  .header .nav { height: 72px; }
+}
+
+
