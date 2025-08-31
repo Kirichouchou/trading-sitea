@@ -1,63 +1,180 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FAQ — Formation Trading</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
   <style>
-    .qa{border:1px solid var(--stroke);border-radius:20px;padding:16px;margin-bottom:12px;background:var(--bg-alt)}
-    .qa.open .answer{display:block}
-    .answer{display:none;color:var(--muted);margin-top:8px}
-    .qa button{all:unset;cursor:pointer;font-weight:600}
+    /* Accordéon minimal, cohérent avec les cards */
+    .faq { max-width: 860px; margin: 0 auto; }
+    .qa { border:1px solid var(--stroke); border-radius:20px; background:var(--bg-alt); padding:16px 18px; margin-bottom:12px; }
+    .qa h3 { margin:0; font-size:18px; }
+    .qa button {
+      all: unset; cursor: pointer; display:flex; align-items:center; justify-content:space-between;
+      width:100%; font-weight:600; line-height:1.3;
+    }
+    .qa .icon { transition: transform .15s ease; }
+    .qa[open] .icon { transform: rotate(180deg); }
+    .answer { color: var(--muted); margin-top:10px; }
   </style>
 </head>
 <body>
-  
-<header class="header">
-  <div class="container">
-    <nav class="nav">
-      <div class="brand">
-        <span class="badge" style="width:36px;height:36px"></span>
-        <span>Marque</span>
+
+  <!-- Header (même structure que les autres pages) -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <div class="brand">
+          <span class="badge" style="width:36px;height:36px"></span>
+          <span>Marque</span>
+        </div>
+
+        <!-- Liens desktop -->
+        <div class="pills nav-links">
+          <a class="badge" href="/index.html">Accueil</a>
+          <a class="badge" href="/programme.html">Programme</a>
+          <a class="badge" href="/temoignages.html">Témoignages</a>
+          <a class="badge" href="/faq.html">FAQ</a>
+        </div>
+
+        <!-- CTA desktop -->
+        <a class="button nav-cta" href="/paiement.html">Commencer</a>
+
+        <!-- Burger mobile -->
+        <button class="menu-toggle" aria-controls="nav-drawer" aria-expanded="false" aria-label="Ouvrir le menu">☰</button>
+      </nav>
+    </div>
+
+    <!-- Drawer mobile -->
+    <div id="nav-drawer" class="drawer" hidden>
+      <div class="drawer__panel">
+        <button class="drawer__close" aria-label="Fermer">✕</button>
+        <a href="/index.html">Accueil</a>
+        <a href="/programme.html">Programme</a>
+        <a href="/temoignages.html">Témoignages</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="button" href="/paiement.html" style="margin-top:12px;">Commencer</a>
       </div>
-      <div class="pills">
-        <a class="badge" href="/index.html">Accueil</a>
-        <a class="badge" href="/programme.html">Programme</a>
-        <a class="badge" href="/temoignages.html">Témoignages</a>
-        <a class="badge" href="/faq.html">FAQ</a>
-      </div>
-      <a class="button" href="/paiement.html">Commencer</a>
-    </nav>
-  </div>
-</header>
+      <div class="drawer__backdrop"></div>
+    </div>
+  </header>
 
   <main class="section">
-    <div class="container">
+    <div class="container faq">
       <h1>FAQ</h1>
-      <div class="qa"><button>Combien de temps dure la formation ?</button><div class="answer">Accès immédiat, travail à votre rythme.</div></div>
-      <div class="qa"><button>Y a‑t‑il une garantie ?</button><div class="answer">Oui, satisfait ou remboursé 14 jours.</div></div>
-      <div class="qa"><button>Puis‑je payer en plusieurs fois ?</button><div class="answer">Possible selon pays (via Stripe/Klarna).</div></div>
-      <div class="qa"><button>Ai‑je un support ?</button><div class="answer">Q&A hebdo + email, communauté privée.</div></div>
+
+      <!-- Accordéon accessible : un seul item ouvert à la fois -->
+      <section>
+        <article class="qa" data-qa>
+          <h3>
+            <button aria-expanded="false" aria-controls="a1" id="q1">
+              <span>Combien de temps dure la formation&nbsp;?</span>
+              <span class="icon">⌄</span>
+            </button>
+          </h3>
+          <div class="answer" id="a1" role="region" aria-labelledby="q1" hidden>
+            Accès immédiat, travail à votre rythme.
+          </div>
+        </article>
+
+        <article class="qa" data-qa>
+          <h3>
+            <button aria-expanded="false" aria-controls="a2" id="q2">
+              <span>Y a-t-il une garantie&nbsp;?</span>
+              <span class="icon">⌄</span>
+            </button>
+          </h3>
+          <div class="answer" id="a2" role="region" aria-labelledby="q2" hidden>
+            Oui, satisfait ou remboursé 14 jours.
+          </div>
+        </article>
+
+        <article class="qa" data-qa>
+          <h3>
+            <button aria-expanded="false" aria-controls="a3" id="q3">
+              <span>Puis-je payer en plusieurs fois&nbsp;?</span>
+              <span class="icon">⌄</span>
+            </button>
+          </h3>
+          <div class="answer" id="a3" role="region" aria-labelledby="q3" hidden>
+            Possible selon pays et éligibilité (Klarna/Afterpay via Stripe).
+          </div>
+        </article>
+
+        <article class="qa" data-qa>
+          <h3>
+            <button aria-expanded="false" aria-controls="a4" id="q4">
+              <span>Ai-je un support&nbsp;?</span>
+              <span class="icon">⌄</span>
+            </button>
+          </h3>
+          <div class="answer" id="a4" role="region" aria-labelledby="q4" hidden>
+            Q&amp;A hebdo + email, communauté privée.
+          </div>
+        </article>
+      </section>
     </div>
   </main>
-  
-<footer class="section" style="padding-top:48px;">
-  <div class="container">
-    <div class="pills">
-      <span class="pill">Mentions légales</span>
-      <span class="pill">CGV</span>
-      <span class="pill">Remboursement 14j</span>
-      <span class="pill">Risques trading</span>
-    </div>
-  </div>
-</footer>
 
+  <footer class="section" style="padding-top:48px;">
+    <div class="container">
+      <div class="pills">
+        <span class="pill">Mentions légales</span>
+        <span class="pill">CGV</span>
+        <span class="pill">Remboursement 14j</span>
+        <span class="pill">Risques trading</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS : drawer + accordéon accessible -->
   <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      document.querySelectorAll('.qa').forEach(function(q){
-        q.querySelector('button').addEventListener('click', function(){ q.classList.toggle('open'); });
+    // Drawer mobile
+    const toggle = document.querySelector(".menu-toggle");
+    const drawer = document.getElementById("nav-drawer");
+    const closeBtn = drawer?.querySelector(".drawer__close");
+    const backdrop = drawer?.querySelector(".drawer__backdrop");
+    function openDrawer(){ drawer.hidden=false; drawer.classList.add("open"); toggle.setAttribute("aria-expanded","true"); document.body.style.overflow="hidden"; }
+    function closeDrawer(){ drawer.classList.remove("open"); setTimeout(()=>drawer.hidden=true,150); toggle.setAttribute("aria-expanded","false"); document.body.style.overflow=""; }
+    toggle?.addEventListener("click", openDrawer);
+    closeBtn?.addEventListener("click", closeDrawer);
+    backdrop?.addEventListener("click", closeDrawer);
+
+    // Accordéon accessible (un seul ouvert)
+    const items = Array.from(document.querySelectorAll("[data-qa]"));
+    items.forEach((it) => {
+      const btn = it.querySelector("button");
+      const panel = document.getElementById(btn.getAttribute("aria-controls"));
+      btn.addEventListener("click", () => {
+        const expanded = btn.getAttribute("aria-expanded") === "true";
+        // Fermer tous les autres
+        items.forEach((other) => {
+          const ob = other.querySelector("button");
+          const op = document.getElementById(ob.getAttribute("aria-controls"));
+          ob.setAttribute("aria-expanded", "false");
+          op.hidden = true;
+          other.removeAttribute("open");
+        });
+        // Ouvrir celui-ci si il n'était pas déjà ouvert
+        if (!expanded) {
+          btn.setAttribute("aria-expanded", "true");
+          panel.hidden = false;
+          it.setAttribute("open", "");
+        }
+      });
+
+      // Accessibilité clavier: Enter/Space sur le bouton → toggle déjà géré
+      // Echap pour fermer rapidement
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          btn.setAttribute("aria-expanded", "false");
+          panel.hidden = true;
+          it.removeAttribute("open");
+          btn.focus();
+        }
       });
     });
   </script>
