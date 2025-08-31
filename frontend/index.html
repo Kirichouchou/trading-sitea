@@ -9,193 +9,197 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-  
-<header class="header">
-  <div class="container">
-    <nav class="nav">
-      <div class="brand">
-        <span class="badge" style="width:36px;height:36px"></span>
-        <span>Marque</span>
-      </div>
 
-      <!-- Liens desktop -->
-      <div class="pills nav-links">
-        <a class="badge" href="/index.html">Accueil</a>
-        <a class="badge" href="/programme.html">Programme</a>
-        <a class="badge" href="/temoignages.html">Témoignages</a>
-        <a class="badge" href="/faq.html">FAQ</a>
-      </div>
-
-      <!-- CTA desktop -->
-      <a class="button nav-cta" href="/paiement.html">Commencer</a>
-
-      <!-- Burger mobile -->
-      <button class="menu-toggle" aria-controls="nav-drawer" aria-expanded="false" aria-label="Ouvrir le menu">
-        ☰
-      </button>
-    </nav>
-  </div>
-
-  <!-- Drawer mobile -->
-  <div id="nav-drawer" class="drawer" hidden>
-    <div class="drawer__panel">
-      <button class="drawer__close" aria-label="Fermer">✕</button>
-      <a href="/index.html">Accueil</a>
-      <a href="/programme.html">Programme</a>
-      <a href="/temoignages.html">Témoignages</a>
-      <a href="/faq.html">FAQ</a>
-      <a class="button" href="/paiement.html" style="margin-top:12px;">Commencer</a>
-    </div>
-    <div class="drawer__backdrop"></div>
-  </div>
-</header>
-
-<main class="section">
-  <div class="container">
-    <div class="grid">
-      <section class="col-7">
-        <h1>Tradez avec une méthode.</h1>
-        <p>Un cadre simple pour passer à l’action sans vous éparpiller.</p>
-        <div class="actions">
-          <a class="button" href="/paiement.html">Commencer maintenant</a>
-          <a class="badge" href="/programme.html">Voir le programme</a>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <div class="brand">
+          <span class="badge" style="width:36px;height:36px"></span>
+          <span>Marque</span>
         </div>
-        <div style="height:16px"></div>
-        <div class="chips">
-          <span class="pill">2 000+ élèves</span>
-          <span class="pill">Note 4,8/5</span>
-          <span class="pill">Depuis 2019</span>
+
+        <!-- Liens desktop -->
+        <div class="pills nav-links">
+          <a class="badge" href="/index.html">Accueil</a>
+          <a class="badge" href="/programme.html">Programme</a>
+          <a class="badge" href="/temoignages.html">Témoignages</a>
+          <a class="badge" href="/faq.html">FAQ</a>
         </div>
-      </section>
-      <aside class="col-5">
-        <div class="card dashed">
-          <div class="mock" style="height:320px"></div>
-        </div>
-      </aside>
+
+        <!-- CTA desktop -->
+        <a class="button nav-cta" href="/paiement.html">Commencer</a>
+
+        <!-- Burger mobile -->
+        <button class="menu-toggle" aria-controls="nav-drawer" aria-expanded="false" aria-label="Ouvrir le menu">☰</button>
+      </nav>
     </div>
-  </div>
 
-  <!-- OFFRES -->
-<div class="container" style="margin-top:64px">
-  <h2>Choisissez votre offre</h2>
-
-  <div class="grid offers">
-    <!-- Offre 1 : Formation + eBooks -->
-    <article class="col-6 card dashed offer">
-      <div class="offer__head">
-        <h3 class="offer__title">Formation complète + eBooks</h3>
-        <span class="pill offer__tag">Meilleure vente</span>
+    <!-- Drawer mobile -->
+    <div id="nav-drawer" class="drawer" hidden>
+      <div class="drawer__panel">
+        <button class="drawer__close" aria-label="Fermer">✕</button>
+        <a href="/index.html">Accueil</a>
+        <a href="/programme.html">Programme</a>
+        <a href="/temoignages.html">Témoignages</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="button" href="/paiement.html" style="margin-top:12px;">Commencer</a>
       </div>
-
-      <p class="offer__subtitle">Un cadre clair et actionnable, à votre rythme.</p>
-
-      <div class="offer__price">
-        <span class="offer__amount">360&nbsp;€</span>
-        <span class="offer__vat">TTC</span>
-      </div>
-
-      <ul class="offer__features">
-        <li>Accès immédiat à la formation</li>
-        <li>eBooks & templates inclus</li>
-        <li>Mises à jour à vie</li>
-        <li>Paiement sécurisé (3-D Secure)</li>
-      </ul>
-
-      <div class="offer__cta">
-        <a class="button" href="/paiement.html">Choisir cette offre</a>
-      </div>
-    </article>
-
-    <!-- Offre 2 : Formation + eBooks + Coaching (places limitées) -->
-    <article class="col-6 card dashed offer offer--pro">
-      <div class="offer__head">
-        <h3 class="offer__title">Formation + eBooks + Coaching</h3>
-        <span class="pill offer__tag offer__tag--dark">
-          <span class="dot dot--warn"></span> Places limitées
-        </span>
-      </div>
-
-      <p class="offer__subtitle">Tout le contenu + accompagnement personnalisé.</p>
-
-      <div class="offer__price">
-        <span class="offer__amount">690&nbsp;€</span>
-        <span class="offer__vat">TTC</span>
-      </div>
-
-      <ul class="offer__features">
-        <li>Toute la formation + eBooks</li>
-        <li>Coaching 1:1 (3 sessions)</li>
-        <li>Q&A privé prioritaire</li>
-        <li>Accès communauté VIP</li>
-      </ul>
-
-      <div class="offer__cta">
-        <a class="button" href="/paiement.html">Réserver mon accès</a>
-      </div>
-    </article>
-  </div>
-</div>
-
-
-  <div class="container" style="margin-top:64px">
-    <h2>Comment ça marche</h2>
-    <div class="grid">
-      <div class="col-5"><div class="card">1 · Inscription</div></div>
-      <div class="col-5"><div class="card">2 · Méthode</div></div>
-      <div class="col-5"><div class="card">3 · Pratique</div></div>
+      <div class="drawer__backdrop"></div>
     </div>
-  </div>
+  </header>
 
-  <div class="container" style="margin-top:64px">
-    <div class="card">
+  <!-- Hero -->
+  <main class="section">
+    <div class="container">
       <div class="grid">
-        <div class="col-7">
-          <h2>Garantie & réassurance</h2>
-          <p>Essai 14 jours satisfait ou remboursé. Le trading comporte des risques de perte en capital.</p>
-        </div>
-        <div class="col-5" style="display:flex;align-items:center;justify-content:flex-end">
-          <a class="button" href="/paiement.html">Rejoindre la formation</a>
+        <section class="col-7">
+          <h1>Tradez avec une méthode.</h1>
+          <p>Un cadre simple pour passer à l’action sans vous éparpiller.</p>
+          <div class="actions">
+            <a class="button" href="/paiement.html">Commencer maintenant</a>
+            <a class="badge" href="/programme.html">Voir le programme</a>
+          </div>
+          <div style="height:16px"></div>
+          <div class="chips">
+            <span class="pill">2 000+ élèves</span>
+            <span class="pill">Note 4,8/5</span>
+            <span class="pill">Depuis 2019</span>
+          </div>
+        </section>
+        <aside class="col-5">
+          <div class="card dashed">
+            <div class="mock" style="height:320px"></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- OFFRES -->
+    <div class="container" style="margin-top:64px">
+      <h2>Choisissez votre offre</h2>
+
+      <div class="grid offers">
+        <!-- Offre 1 : Formation + eBooks -->
+        <article class="col-6 card dashed offer">
+          <div class="offer__head">
+            <h3 class="offer__title">Formation complète + eBooks</h3>
+            <span class="pill offer__tag">Meilleure vente</span>
+          </div>
+
+          <p class="offer__subtitle">Un cadre clair et actionnable, à votre rythme.</p>
+
+          <div class="offer__price">
+            <span class="offer__amount">99,99&nbsp;€</span>
+            <span class="offer__old">129,99&nbsp;€</span>
+            <span class="offer__vat">TTC</span>
+          </div>
+
+          <ul class="offer__features">
+            <li>Accès immédiat à la formation</li>
+            <li>eBooks & templates inclus</li>
+            <li>Mises à jour à vie</li>
+            <li>Paiement sécurisé (3-D Secure)</li>
+          </ul>
+
+          <div class="offer__cta">
+            <a class="button" href="/paiement.html">Choisir cette offre</a>
+          </div>
+        </article>
+
+        <!-- Offre 2 : Formation + eBooks + Coaching (places limitées) -->
+        <article class="col-6 card dashed offer offer--pro">
+          <div class="offer__head">
+            <h3 class="offer__title">Formation + eBooks + Coaching</h3>
+            <span class="pill offer__tag offer__tag--dark">
+              <span class="dot dot--warn"></span> Places limitées
+            </span>
+          </div>
+
+          <p class="offer__subtitle">Tout le contenu + accompagnement personnalisé.</p>
+
+          <div class="offer__price">
+            <span class="offer__amount">155,99&nbsp;€</span>
+            <span class="offer__old">225,99&nbsp;€</span>
+            <span class="offer__vat">TTC</span>
+          </div>
+
+          <ul class="offer__features">
+            <li>Toute la formation + eBooks</li>
+            <li>Coaching 1:1 (3 sessions)</li>
+            <li>Q&A privé prioritaire</li>
+            <li>Accès communauté VIP</li>
+          </ul>
+
+          <div class="offer__cta">
+            <a class="button" href="/paiement.html">Réserver mon accès</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="container" style="margin-top:64px">
+      <h2>Comment ça marche</h2>
+      <div class="grid">
+        <div class="col-5"><div class="card">1 · Inscription</div></div>
+        <div class="col-5"><div class="card">2 · Méthode</div></div>
+        <div class="col-5"><div class="card">3 · Pratique</div></div>
+      </div>
+    </div>
+
+    <!-- Guarantee -->
+    <div class="container" style="margin-top:64px">
+      <div class="card">
+        <div class="grid">
+          <div class="col-7">
+            <h2>Garantie & réassurance</h2>
+            <p>Essai 14 jours satisfait ou remboursé. Le trading comporte des risques de perte en capital.</p>
+          </div>
+          <div class="col-5" style="display:flex;align-items:center;justify-content:flex-end">
+            <a class="button" href="/paiement.html">Rejoindre la formation</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
 
-<footer class="section" style="padding-top:48px;">
-  <div class="container">
-    <div class="pills">
-      <span class="pill">Mentions légales</span>
-      <span class="pill">CGV</span>
-      <span class="pill">Remboursement 14j</span>
-      <span class="pill">Risques trading</span>
+  <!-- Footer -->
+  <footer class="section" style="padding-top:48px;">
+    <div class="container">
+      <div class="pills">
+        <span class="pill">Mentions légales</span>
+        <span class="pill">CGV</span>
+        <span class="pill">Remboursement 14j</span>
+        <span class="pill">Risques trading</span>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<!-- JS drawer mobile -->
-<script>
-  const toggle = document.querySelector(".menu-toggle");
-  const drawer = document.getElementById("nav-drawer");
-  const closeBtn = drawer?.querySelector(".drawer__close");
-  const backdrop = drawer?.querySelector(".drawer__backdrop");
+  <!-- JS drawer mobile -->
+  <script>
+    const toggle = document.querySelector(".menu-toggle");
+    const drawer = document.getElementById("nav-drawer");
+    const closeBtn = drawer?.querySelector(".drawer__close");
+    const backdrop = drawer?.querySelector(".drawer__backdrop");
 
-  function openDrawer(){
-    drawer.hidden=false; 
-    drawer.classList.add("open"); 
-    toggle.setAttribute("aria-expanded","true"); 
-    document.body.style.overflow="hidden"; 
-  }
-  function closeDrawer(){
-    drawer.classList.remove("open"); 
-    setTimeout(()=>drawer.hidden=true,150); 
-    toggle.setAttribute("aria-expanded","false"); 
-    document.body.style.overflow=""; 
-  }
+    function openDrawer(){
+      drawer.hidden=false;
+      drawer.classList.add("open");
+      toggle.setAttribute("aria-expanded","true");
+      document.body.style.overflow="hidden";
+    }
+    function closeDrawer(){
+      drawer.classList.remove("open");
+      setTimeout(()=>drawer.hidden=true,150);
+      toggle.setAttribute("aria-expanded","false");
+      document.body.style.overflow="";
+    }
 
-  toggle?.addEventListener("click", openDrawer);
-  closeBtn?.addEventListener("click", closeDrawer);
-  backdrop?.addEventListener("click", closeDrawer);
-</script>
+    toggle?.addEventListener("click", openDrawer);
+    closeBtn?.addEventListener("click", closeDrawer);
+    backdrop?.addEventListener("click", closeDrawer);
+  </script>
 
 </body>
 </html>
