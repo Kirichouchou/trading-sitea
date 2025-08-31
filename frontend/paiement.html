@@ -30,16 +30,21 @@
     /* Stripe dans le wrapper : occupe tout l’espace */
     .input--stripe #card-element,
     .input--stripe .StripeElement,
-    .input--stripe iframe {
-      width: 100% !important;
-      height: 100% !important;
-    }
+    .input--stripe iframe { width: 100% !important; height: 100% !important; }
+
     /* Message d’info/erreur */
     #messages { min-height: 20px; }
+
+    /* Mobile: bouton Apple/Google Pay full width si thème externe absent */
+    @media (max-width: 768px) {
+      #payment-request-button, #payment-request-button > div, #payment-request-button > div > div {
+        width: 100% !important; max-width: 100% !important;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header (identique aux autres pages, avec burger) -->
   <header class="header">
     <div class="container">
       <nav class="nav">
@@ -47,14 +52,34 @@
           <span class="badge" style="width:36px;height:36px"></span>
           <span>Marque</span>
         </div>
-        <div class="pills">
+
+        <!-- Liens desktop -->
+        <div class="pills nav-links">
           <a class="badge" href="/index.html">Accueil</a>
           <a class="badge" href="/programme.html">Programme</a>
           <a class="badge" href="/temoignages.html">Témoignages</a>
           <a class="badge" href="/faq.html">FAQ</a>
         </div>
-        <a class="button" href="/paiement.html">Commencer</a>
+
+        <!-- CTA desktop -->
+        <a class="button nav-cta" href="/paiement.html">Commencer</a>
+
+        <!-- Burger mobile -->
+        <button class="menu-toggle" aria-controls="nav-drawer" aria-expanded="false" aria-label="Ouvrir le menu">☰</button>
       </nav>
+    </div>
+
+    <!-- Drawer mobile -->
+    <div id="nav-drawer" class="drawer" hidden>
+      <div class="drawer__panel">
+        <button class="drawer__close" aria-label="Fermer">✕</button>
+        <a href="/index.html">Accueil</a>
+        <a href="/programme.html">Programme</a>
+        <a href="/temoignages.html">Témoignages</a>
+        <a href="/faq.html">FAQ</a>
+        <a class="button" href="/paiement.html" style="margin-top:12px;">Commencer</a>
+      </div>
+      <div class="drawer__backdrop"></div>
     </div>
   </header>
 
@@ -84,7 +109,7 @@
               <div id="card-element"></div>
             </div>
 
-            <button id="pay" class="button" style="margin-top:16px">Payer et accéder</button>
+            <button id="pay" type="button" class="button" style="margin-top:16px">Payer et accéder</button>
             <div id="messages" class="note" style="margin-top:8px"></div>
           </div>
 
@@ -142,17 +167,17 @@
     async function init(){
       // 1) Récup config (clé publique + prix)
       const cfg = await fetch(API_BASE_URL + "/config").then(r => r.json());
-      const stripe = Stripe(cfg.publishableKey);
+      const stripe = Stripe((cfg.publishableKey || "").trim());
 
-      // Montant en centimes (entier) retourné par le backend
+      // Montant en centimes (entier)
       const cents = Number(cfg.amount);           // ex. 36000 pour 360,00 €
-      const currency = cfg.currency || "eur";
+      const currency = (cfg.currency || "eur").toLowerCase();
 
       // Affichage en euros
       document.getElementById("order-total").textContent =
         new Intl.NumberFormat("fr-FR",{ style:"currency", currency }).format(cents/100);
 
-      // 2) Wallets (Apple Pay / Google Pay) — ATTENTION: montant en CENTIMES
+      // 2) Wallets (Apple Pay / Google Pay) — montant en CENTIMES
       const pr = stripe.paymentRequest({
         country: "FR",
         currency,
@@ -165,9 +190,11 @@
         paymentRequest: pr,
         style: { paymentRequestButton: { type: "default" } }
       });
-      const canPay = await pr.canMakePayment();
-      if (canPay) prButton.mount("#payment-request-button");
-      else document.getElementById("payment-request-button").style.display = "none";
+      try {
+        const canPay = await pr.canMakePayment();
+        if (canPay) prButton.mount("#payment-request-button");
+        else document.getElementById("payment-request-button").style.display = "none";
+      } catch { document.getElementById("payment-request-button").style.display = "none"; }
 
       // 3) Carte bancaire (Stripe Elements) — style lisible
       const card = elements.create("card", {
@@ -183,19 +210,22 @@
       });
       card.mount("#card-element");
 
-      // 4) Paiement par carte
+      // 4) Paiement par carte (état de chargement + gestion erreurs)
       const btn = document.getElementById("pay");
       btn.addEventListener("click", async () => {
         try {
           btn.disabled = true;
+          const label = btn.textContent;
+          btn.textContent = "Traitement…";
           messages("Création du paiement…");
+
           const r = await fetch(API_BASE_URL + "/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({}) // place pour metadata si besoin
           });
           const data = await r.json();
-          if (!r.ok) throw new Error(data?.error?.message || "Erreur serveur");
+          if (!r.ok || !data?.clientSecret) throw new Error(data?.error?.message || "Erreur serveur");
 
           const { error } = await stripe.confirmCardPayment(data.clientSecret, {
             payment_method: { card }
@@ -204,14 +234,27 @@
           if (error) throw error;
 
           messages("Paiement réussi. Redirection…");
-          setTimeout(() => window.location = "success.html", 1000);
+          setTimeout(() => window.location = "success.html", 800);
         } catch (e) {
           messages(e.message || "Paiement refusé.");
           btn.disabled = false;
+          btn.textContent = "Payer et accéder";
         }
       });
     }
 
+    // Drawer mobile (même JS que les autres pages)
+    const toggle = document.querySelector(".menu-toggle");
+    const drawer = document.getElementById("nav-drawer");
+    const closeBtn = drawer?.querySelector(".drawer__close");
+    const backdrop = drawer?.querySelector(".drawer__backdrop");
+    function openDrawer(){ drawer.hidden=false; drawer.classList.add("open"); toggle.setAttribute("aria-expanded","true"); document.body.style.overflow="hidden"; }
+    function closeDrawer(){ drawer.classList.remove("open"); setTimeout(()=>drawer.hidden=true,150); toggle.setAttribute("aria-expanded","false"); document.body.style.overflow=""; }
+    toggle?.addEventListener("click", openDrawer);
+    closeBtn?.addEventListener("click", closeDrawer);
+    backdrop?.addEventListener("click", closeDrawer);
+
+    // Init paiement
     init();
   </script>
 </body>
