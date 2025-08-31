@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accès formation</title>
+  <style>
+    :root{
+      --container:1140px; --g:24px; --r:24px;
+      --bg:#F7F7F8; --panel:#FFF; --ink:#0F172A; --muted:#475569; --stroke:#E5E7EB; --cta:#0F172A;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    .container{max-width:var(--container);margin:0 auto;padding:0 var(--g)}
+    .header{position:sticky;top:0;background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--stroke)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+    .pill{border-radius:999px;padding:10px 18px;border:1.5px dashed #C7CAD1;background:#FFF}
+    .section{padding:64px 0}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--g)}
+    .col-8{grid-column:span 8} .col-4{grid-column:span 4} .col-12{grid-column:span 12}
+    .card{background:var(--panel);border:1px dashed #C7CAD1;border-radius:var(--r);padding:24px}
+    h1{margin:0 0 8px;font-size:32px;line-height:1.2}
+    h2{margin:0 0 12px;font-size:22px}
+    p{margin:0 0 12px;color:var(--muted)}
+    .cta{display:inline-block;background:var(--cta);color:#FFF;border:none;border-radius:999px;padding:14px 22px;font-weight:600;text-decoration:none}
+    .module{background:#FFF;border:1px dashed #C7CAD1;border-radius:16px;padding:16px}
+    .list{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .progress{height:10px;background:#EEF2F7;border-radius:999px;overflow:hidden}
+    .progress > i{display:block;height:100%;width:40%;background:#0F172A}
+    @media (max-width:768px){ .grid{grid-template-columns:repeat(4,1fr);gap:16px} .col-8,.col-4,.col-12{grid-column:span 4} .list{grid-template-columns:1fr} }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="pill" style="width:36px;height:36px"></div><strong>Marque</strong>
+        </div>
+        <a href="/frontend/index.html" class="pill">Paiement</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="grid">
+        <section class="col-8">
+          <div class="card">
+            <h1>Bienvenue dans la formation</h1>
+            <p>Accédez aux modules ci‑dessous. Vidéos courtes, exercices, templates.</p>
+            <div class="progress" title="Progression"><i></i></div>
+            <div style="height:16px"></div>
+            <a href="#" class="cta">Commencer le Module 1</a>
+          </div>
+          <div style="height:16px"></div>
+          <div class="list">
+            <div class="module">
+              <h3 style="margin:0 0 6px">Module 1 — Bases & setup</h3>
+              <p>Environnement, outils, premiers trades.</p>
+              <a href="#" class="cta" style="padding:10px 14px;font-size:14px">Voir</a>
+            </div>
+            <div class="module">
+              <h3 style="margin:0 0 6px">Module 2 — Stratégie</h3>
+              <p>Entrées/sorties, gestion du risque.</p>
+              <a href="#" class="cta" style="padding:10px 14px;font-size:14px">Voir</a>
+            </div>
+            <div class="module">
+              <h3 style="margin:0 0 6px">Module 3 — Backtests</h3>
+              <p>Cas réels, checklists.</p>
+              <a href="#" class="cta" style="padding:10px 14px;font-size:14px">Voir</a>
+            </div>
+            <div class="module">
+              <h3 style="margin:0 0 6px">Module 4 — Routine & psycho</h3>
+              <p>Journal de bord, discipline.</p>
+              <a href="#" class="cta" style="padding:10px 14px;font-size:14px">Voir</a>
+            </div>
+          </div>
+        </section>
+        <aside class="col-4">
+          <div class="card">
+            <h2>Ressources</h2>
+            <p>Templates, checklists, communauté privée.</p>
+            <div style="height:120px;border:1px dashed #C7CAD1;border-radius:12px;background:linear-gradient(180deg,#EEE,#DDD)"></div>
+          </div>
+          <div style="height:16px"></div>
+          <div class="card">
+            <h2>Support</h2>
+            <p>Q&A hebdo · Email : support@exemple.com</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

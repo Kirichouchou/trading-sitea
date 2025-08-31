@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ — Formation Trading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .qa{border:1px solid var(--stroke);border-radius:20px;padding:16px;margin-bottom:12px;background:var(--bg-alt)}
+    .qa.open .answer{display:block}
+    .answer{display:none;color:var(--muted);margin-top:8px}
+    .qa button{all:unset;cursor:pointer;font-weight:600}
+  </style>
+</head>
+<body>
+  
+<header class="header">
+  <div class="container">
+    <nav class="nav">
+      <div class="brand">
+        <span class="badge" style="width:36px;height:36px"></span>
+        <span>Marque</span>
+      </div>
+      <div class="pills">
+        <a class="badge" href="/index.html">Accueil</a>
+        <a class="badge" href="/programme.html">Programme</a>
+        <a class="badge" href="/temoignages.html">Témoignages</a>
+        <a class="badge" href="/faq.html">FAQ</a>
+      </div>
+      <a class="button" href="/paiement.html">Commencer</a>
+    </nav>
+  </div>
+</header>
+
+  <main class="section">
+    <div class="container">
+      <h1>FAQ</h1>
+      <div class="qa"><button>Combien de temps dure la formation ?</button><div class="answer">Accès immédiat, travail à votre rythme.</div></div>
+      <div class="qa"><button>Y a‑t‑il une garantie ?</button><div class="answer">Oui, satisfait ou remboursé 14 jours.</div></div>
+      <div class="qa"><button>Puis‑je payer en plusieurs fois ?</button><div class="answer">Possible selon pays (via Stripe/Klarna).</div></div>
+      <div class="qa"><button>Ai‑je un support ?</button><div class="answer">Q&A hebdo + email, communauté privée.</div></div>
+    </div>
+  </main>
+  
+<footer class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="pills">
+      <span class="pill">Mentions légales</span>
+      <span class="pill">CGV</span>
+      <span class="pill">Remboursement 14j</span>
+      <span class="pill">Risques trading</span>
+    </div>
+  </div>
+</footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.qa').forEach(function(q){
+        q.querySelector('button').addEventListener('click', function(){ q.classList.toggle('open'); });
+      });
+    });
+  </script>
+</body>
+</html>
